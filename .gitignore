@@ -4,6 +4,7 @@ build/
 *.egg-info/
 
 ./model
+./data
 
 
 __pycache__/            
