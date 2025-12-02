@@ -3,8 +3,8 @@ dist/
 build/                  
 *.egg-info/
 
-./model
-./data
+model/
+data/
 
 
 __pycache__/            

@@ -15,7 +15,7 @@ TARGET_FEATURES = Features({
 })
 
 IMAGE_TOKEN = "<image>"
-MAX_IMAGE_SIZE = 2048 
+MAX_IMAGE_SIZE = 512 
 
 # DocVQA templates
 DOCVQA_TEMPLATES = [
@@ -43,8 +43,10 @@ def _get_random_prompt(templates: List[str], **kwargs) -> str:
     return template.format(**kwargs)
 
 def _resize_image(image):
+    MAX_IMAGE_SIZE = 512 
     if image is None: return None
     w, h = image.size
+    print(f"Original image size: {w}x{h}")
     if w > MAX_IMAGE_SIZE or h > MAX_IMAGE_SIZE:
         scale = min(MAX_IMAGE_SIZE / w, MAX_IMAGE_SIZE / h)
         new_w = int(w * scale)
@@ -157,6 +159,7 @@ def build_deepseek_ocr_sft_dataset(
         remove_columns=ds_docvqa.column_names,
         features=TARGET_FEATURES,
         num_proc=num_proc,
+        load_from_cache_file=False,
         writer_batch_size=500,
         desc="Processing DocVQA"
     )
